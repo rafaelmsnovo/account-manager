@@ -1,8 +1,8 @@
 package br.com.accountmanager.repository;
 
 import br.com.accountmanager.entity.TransactionEntity;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TransactionRepository extends CrudRepository<TransactionEntity, Long> {
+public interface TransactionRepository extends JpaRepository<TransactionEntity, Long> {
 
 }

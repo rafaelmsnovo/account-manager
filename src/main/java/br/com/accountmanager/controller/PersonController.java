@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.Set;
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/person")
@@ -20,7 +20,7 @@ public class PersonController {
 
     @RequestMapping(path = "/list", method = RequestMethod.GET)
     public ResponseEntity getAll() {
-        Set<PersonEntity> products = personService.getAll();
+        List<PersonEntity> products = personService.getAll();
         return new ResponseEntity(products, HttpStatus.OK);
     }
 }

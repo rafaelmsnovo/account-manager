@@ -1,8 +1,8 @@
 package br.com.accountmanager.repository;
 
 import br.com.accountmanager.entity.AccountEntity;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AccountRepository extends CrudRepository<AccountEntity, Long> {
+public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
 
 }

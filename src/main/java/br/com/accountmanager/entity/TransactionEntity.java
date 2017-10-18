@@ -6,9 +6,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "TRANSACTION")
@@ -31,12 +33,14 @@ public class TransactionEntity {
     private Boolean reversed;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ACCOUNT_ID_IN", nullable = false)
-    private AccountEntity accountIn;
+    @JoinTable(name = "ACCOUNT_TRANSACTION", joinColumns = { @JoinColumn(name = "TRANSACTION_ID") }, inverseJoinColumns = {
+        @JoinColumn(name = "ACCOUNT_ID_IN") })
+    private List<AccountEntity> accountIn;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ACCOUNT_ID_OUT", nullable = false)
-    private AccountEntity accountOut;
+    @JoinTable(name = "ACCOUNT_TRANSACTION", joinColumns = { @JoinColumn(name = "TRANSACTION_ID") }, inverseJoinColumns = {
+        @JoinColumn(name = "ACCOUNT_ID_OUT") })
+    private List<AccountEntity> accountOut;
 
     public TransactionEntity() {
     }
@@ -47,8 +51,7 @@ public class TransactionEntity {
         Double value,
         String type,
         Boolean reversed,
-        AccountEntity accountIn,
-        AccountEntity accountOut) {
+        List<AccountEntity> accountIn, List<AccountEntity> accountOut) {
         this.id = id;
         this.transaction_date = transaction_date;
         this.value = value;
@@ -98,24 +101,24 @@ public class TransactionEntity {
         this.reversed = reversed;
     }
 
-    public AccountEntity getAccountIn() {
+    public List<AccountEntity> getAccountIn() {
         return accountIn;
     }
 
-    public void setAccountIn(AccountEntity accountIn) {
+    public void setAccountIn(List<AccountEntity> accountIn) {
         this.accountIn = accountIn;
     }
 
-    public AccountEntity getAccountOut() {
+    public List<AccountEntity> getAccountOut() {
         return accountOut;
     }
 
-    public void setAccountOut(AccountEntity accountOut) {
+    public void setAccountOut(List<AccountEntity> accountOut) {
         this.accountOut = accountOut;
     }
 
     @Override public String toString() {
-        return "ServiceOrderEntity{" +
+        return "TransactionEntity{" +
             "id=" + id +
             ", transaction_date=" + transaction_date +
             ", value=" + value +

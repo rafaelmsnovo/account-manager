@@ -5,9 +5,7 @@ import br.com.accountmanager.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class PersonService {
@@ -15,8 +13,8 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
 
-    public Set<PersonEntity> getAll() {
-        return new HashSet<PersonEntity>((Collection<? extends PersonEntity>) personRepository.findAll());
+    public List<PersonEntity> getAll() {
+        return personRepository.findAll();
     }
 
 }
