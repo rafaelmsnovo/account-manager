@@ -1,7 +1,11 @@
 package br.com.accountmanager.entity;
 
+import br.com.accountmanager.util.AccountStatusEnum;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,34 +20,48 @@ public class AccountEntity {
 
     @Id
     @GeneratedValue
+    @Column(name = "ID", nullable = false)
     private Long id;
 
-    @Column(nullable = false)
-    private String account_name;
+    @Column(name = "ACCOUNT_NAME", nullable = false, length = 255)
+    private String accountName;
 
-    @Column(nullable = false)
-    private Date create_date;
+    @Column(name = "CREATE_DATE", nullable = false)
+    private Date createDate;
 
-    @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS", nullable = false, length = 50)
+    private AccountStatusEnum status;
 
-    @Column(nullable = false)
+    @Column(name = "BALANCE", nullable = false)
     private Double balance;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PERSON_ID", nullable = false)
     private PersonEntity person;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ACCOUNT_PARENT_ID")
+    private AccountEntity accountParent;
+
     public AccountEntity() {
     }
 
-    public AccountEntity(Long id, String account_name, Date create_date, String status, Double balance, PersonEntity person) {
+    public AccountEntity(
+        Long id,
+        String accountName,
+        Date createDate,
+        AccountStatusEnum status,
+        Double balance,
+        PersonEntity person,
+        AccountEntity accountParent) {
         this.id = id;
-        this.account_name = account_name;
-        this.create_date = create_date;
+        this.accountName = accountName;
+        this.createDate = createDate;
         this.status = status;
         this.balance = balance;
         this.person = person;
+        this.accountParent = accountParent;
     }
 
     public Long getId() {
@@ -54,27 +72,27 @@ public class AccountEntity {
         this.id = id;
     }
 
-    public String getAccount_name() {
-        return account_name;
+    public String getAccountName() {
+        return accountName;
     }
 
-    public void setAccount_name(String account_name) {
-        this.account_name = account_name;
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
-    public Date getCreate_date() {
-        return create_date;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreate_date(Date create_date) {
-        this.create_date = create_date;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public String getStatus() {
+    public AccountStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(AccountStatusEnum status) {
         this.status = status;
     }
 
@@ -94,14 +112,23 @@ public class AccountEntity {
         this.person = person;
     }
 
+    public AccountEntity getAccountParent() {
+        return accountParent;
+    }
+
+    public void setAccountParent(AccountEntity accountParent) {
+        this.accountParent = accountParent;
+    }
+
     @Override public String toString() {
         return "AccountEntity{" +
             "id=" + id +
-            ", account_name='" + account_name + '\'' +
-            ", create_date=" + create_date +
-            ", status='" + status + '\'' +
+            ", accountName='" + accountName + '\'' +
+            ", createDate=" + createDate +
+            ", status=" + status +
             ", balance=" + balance +
             ", person=" + person +
+            ", accountParent=" + accountParent +
             '}';
     }
 }

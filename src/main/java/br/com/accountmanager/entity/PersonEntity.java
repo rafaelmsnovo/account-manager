@@ -1,5 +1,6 @@
 package br.com.accountmanager.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,31 +13,38 @@ public class PersonEntity {
 
     @Id
     @GeneratedValue
+    @Column(name = "ID", nullable = false)
     private Long id;
 
+    @Column(name = "CNPJ", length = 14)
     private String cnpj;
 
-    private String company_name;
+    @Column(name = "COMPANY_NAME", length = 255)
+    private String companyName;
 
-    private String fantasy_name;
+    @Column(name = "FANTASY_NAME", length = 255)
+    private String fantasyName;
 
+    @Column(name = "CPF", length = 11)
     private String cpf;
 
-    private String full_name;
+    @Column(name = "FULL_NAME", length = 255)
+    private String fullName;
 
-    private Date birth_date;
+    @Column(name = "BIRTH_DATE")
+    private Date birthDate;
 
     public PersonEntity() {
     }
 
-    public PersonEntity(Long id, String cnpj, String company_name, String fantasy_name, String cpf, String full_name, Date birth_date) {
+    public PersonEntity(Long id, String cnpj, String companyName, String fantasyName, String cpf, String fullName, Date birthDate) {
         this.id = id;
         this.cnpj = cnpj;
-        this.company_name = company_name;
-        this.fantasy_name = fantasy_name;
+        this.companyName = companyName;
+        this.fantasyName = fantasyName;
         this.cpf = cpf;
-        this.full_name = full_name;
-        this.birth_date = birth_date;
+        this.fullName = fullName;
+        this.birthDate = birthDate;
     }
 
     public Long getId() {
@@ -55,20 +63,20 @@ public class PersonEntity {
         this.cnpj = cnpj;
     }
 
-    public String getCompany_name() {
-        return company_name;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public String getFantasy_name() {
-        return fantasy_name;
+    public String getFantasyName() {
+        return fantasyName;
     }
 
-    public void setFantasy_name(String fantasy_name) {
-        this.fantasy_name = fantasy_name;
+    public void setFantasyName(String fantasyName) {
+        this.fantasyName = fantasyName;
     }
 
     public String getCpf() {
@@ -79,31 +87,31 @@ public class PersonEntity {
         this.cpf = cpf;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public Date getBirth_date() {
-        return birth_date;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirth_date(Date birth_date) {
-        this.birth_date = birth_date;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     @Override public String toString() {
         return "PersonEntity{" +
             "id=" + id +
             ", cnpj='" + cnpj + '\'' +
-            ", company_name='" + company_name + '\'' +
-            ", fantasy_name='" + fantasy_name + '\'' +
+            ", companyName='" + companyName + '\'' +
+            ", fantasyName='" + fantasyName + '\'' +
             ", cpf='" + cpf + '\'' +
-            ", full_name='" + full_name + '\'' +
-            ", birth_date='" + birth_date + '\'' +
+            ", fullName='" + fullName + '\'' +
+            ", birthDate=" + birthDate +
             '}';
     }
 }

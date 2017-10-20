@@ -20,7 +20,7 @@ public class TransactionController {
 
     @RequestMapping(path = "/list", method = RequestMethod.GET)
     public ResponseEntity getAll() {
-        List<TransactionEntity> orders = transactionService.getAll();
-        return new ResponseEntity(orders, HttpStatus.OK);
+        List<TransactionEntity> transactions = transactionService.getAll();
+        return new ResponseEntity(transactions      , HttpStatus.OK);
     }
 }

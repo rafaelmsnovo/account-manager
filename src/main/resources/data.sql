@@ -16,3 +16,21 @@ INSERT INTO PERSON (
     TO_TIMESTAMP('23/03/1990', 'DD/MM/YYYY')
   );
 
+INSERT INTO ACCOUNT (
+    ID,
+    ACCOUNT_NAME,
+    CREATE_DATE,
+    STATUS,
+    BALANCE,
+    PERSON_ID,
+    ACCOUNT_PARENT_ID
+  ) VALUES (
+    1,
+    'conta do rafao',
+    now(),
+    'ACTIVE',
+    0,
+    1,
+    null
+  );
+

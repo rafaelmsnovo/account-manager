@@ -17,4 +17,18 @@ public class AccountService {
         return accountRepository.findAll();
     }
 
+    public void remove(Long personId) {
+        accountRepository.delete(personId);
+    }
+
+    public void save(AccountEntity accountEntity) {
+        accountRepository.save(accountEntity);
+    }
+
+    public void update(AccountEntity accountEntity) {
+        if (accountEntity.getId() != null) {
+            accountRepository.save(accountEntity);
+        }
+    }
+
 }

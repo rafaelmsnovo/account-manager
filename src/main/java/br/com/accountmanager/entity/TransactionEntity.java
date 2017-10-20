@@ -1,5 +1,7 @@
 package br.com.accountmanager.entity;
 
+import br.com.accountmanager.util.TransactionTypeEnum;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,18 +20,19 @@ public class TransactionEntity {
 
     @Id
     @GeneratedValue
+    @Column(name = "ID", nullable = false)
     private Long id;
 
-    @Column(nullable = false)
-    private Date transaction_date;
+    @Column(name = "CREATE_DATE", nullable = false)
+    private Date transactionDate;
 
-    @Column(nullable = false)
+    @Column(name = "VALUE", nullable = false)
     private Double value;
 
-    @Column(nullable = false)
-    private String type;
+    @Column(name = "TYPE", nullable = false, length = 50)
+    private TransactionTypeEnum type;
 
-    @Column(nullable = false)
+    @Column(name = "REVERSED", nullable = false)
     private Boolean reversed;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -47,13 +50,13 @@ public class TransactionEntity {
 
     public TransactionEntity(
         Long id,
-        Date transaction_date,
+        Date transactionDate,
         Double value,
-        String type,
+        TransactionTypeEnum type,
         Boolean reversed,
         List<AccountEntity> accountIn, List<AccountEntity> accountOut) {
         this.id = id;
-        this.transaction_date = transaction_date;
+        this.transactionDate = transactionDate;
         this.value = value;
         this.type = type;
         this.reversed = reversed;
@@ -69,12 +72,12 @@ public class TransactionEntity {
         this.id = id;
     }
 
-    public Date getTransaction_date() {
-        return transaction_date;
+    public Date getTransactionDate() {
+        return transactionDate;
     }
 
-    public void setTransaction_date(Date transaction_date) {
-        this.transaction_date = transaction_date;
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
     }
 
     public Double getValue() {
@@ -85,11 +88,11 @@ public class TransactionEntity {
         this.value = value;
     }
 
-    public String getType() {
+    public TransactionTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TransactionTypeEnum type) {
         this.type = type;
     }
 
@@ -120,7 +123,7 @@ public class TransactionEntity {
     @Override public String toString() {
         return "TransactionEntity{" +
             "id=" + id +
-            ", transaction_date=" + transaction_date +
+            ", transactionDate=" + transactionDate +
             ", value=" + value +
             ", type='" + type + '\'' +
             ", reversed=" + reversed +

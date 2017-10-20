@@ -16,4 +16,18 @@ public class TransactionService {
     public List<TransactionEntity> getAll() {
         return transactionRepository.findAll();
     }
+
+    public void remove(Long personId) {
+        transactionRepository.delete(personId);
+    }
+
+    public void save(TransactionEntity transactionEntity) {
+        transactionRepository.save(transactionEntity);
+    }
+
+    public void update(TransactionEntity transactionEntity) {
+        if (transactionEntity.getId() != null) {
+            transactionRepository.save(transactionEntity);
+        }
+    }
 }
