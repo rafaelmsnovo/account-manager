@@ -26,11 +26,49 @@ INSERT INTO ACCOUNT (
     ACCOUNT_PARENT_ID
   ) VALUES (
     1,
-    'conta do rafao',
+    'conta do rafa 1',
     now(),
     'ACTIVE',
-    0,
+    -120.50,
     1,
     null
   );
+
+  INSERT INTO ACCOUNT (
+      ID,
+      ACCOUNT_NAME,
+      CREATE_DATE,
+      STATUS,
+      BALANCE,
+      PERSON_ID,
+      ACCOUNT_PARENT_ID
+    ) VALUES (
+      2,
+      'conta do rafa 2',
+      now(),
+      'ACTIVE',
+      120.50,
+      1,
+      1
+    );
+
+
+  INSERT INTO `TRANSACTION` (
+      ID,
+      CREATE_DATE,
+      `VALUE`,
+      TYPE,
+      REVERSED,
+      ACCOUNT_ID_IN,
+      ACCOUNT_ID_OUT
+    ) VALUES (
+      1,
+      now(),
+      120.50,
+      'TRANSFER',
+      0,
+      2,
+      1
+    );
+
 

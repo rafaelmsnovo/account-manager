@@ -13,15 +13,22 @@ export default class Account extends Component {
   }
 
   removeAccount(account){
-    console.log(account);
-    fetch(`http://localhost:8080/account/remove?person=${account}`, {
-       method: 'POST'
+    fetch('http://localhost:8080/account/remove', {
+       method: 'POST',
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify({account: account})
     })
     .then((response) => {
-      console.log(response);
+      if (!response.ok) {
+        throw Error();
+      }
+      this.listAccount();
     })
     .catch((error) => {
-      console.log(error);
+      alert('Erro ao remover a conta '+account.id+', verifique se esta conta não está atrelada a nenhuma outra conta.');
     });
   }
 
@@ -42,7 +49,7 @@ export default class Account extends Component {
   render() {
     return (
       <Col sm={12} md={12} className="Content">
-        <Button bsStyle="primary" >Adicionar Conta</Button><br></br><br></br>
+        <Button bsStyle="primary" href='/account/add'>Adicionar Conta</Button><br></br><br></br>
         <table className="List-table">
           <thead>
           <tr>
@@ -52,22 +59,29 @@ export default class Account extends Component {
             <th>STATUS</th>
             <th>SALDO</th>
             <th>PESSOA</th>
-            <th>PAI</th>
+            <th>TIPO</th>
             <th>AÇÕES</th>
           </tr>
           </thead>
           <tbody>
           {this.state.accounts.map(function(account){
+            var d = new Date(account.createDate);
+            let month = String(d.getMonth() + 1);
+            let day = String(d.getDate());
+            const year = String(d.getFullYear());
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+            let date  = day+"/"+month+"/"+year;
             return (
               <tr>
                 <td>{account.id}</td>
                 <td>{account.accountName}</td>
-                <td>{account.createDate}</td>
+                <td>{date}</td>
                 <td>{account.status}</td>
                 <td>{account.balance}</td>
-                <td>{account.person.id}</td>
-                <td>{account.accountParent}</td>
-                <td><Button bsSize="small" >Editar</Button> <Button bsStyle="danger" bsSize="small" onClick={() => this.removeAccount(account.id)}>Remover</Button></td>
+                <td>{account.personId}</td>
+                <td>{account.accountParentId === null ? 'MATRIZ' : 'FILIAL: ' + account.accountParentId}</td>
+                <td><Button bsSize="small" href={"/account/edit/" + account.id}>Editar</Button> <Button bsStyle="danger" bsSize="small" onClick={() => this.removeAccount(account)}>Remover</Button></td>
               </tr>
             )
           }, this)}

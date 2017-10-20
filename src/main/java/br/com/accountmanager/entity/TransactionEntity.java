@@ -4,15 +4,15 @@ import br.com.accountmanager.util.TransactionTypeEnum;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "TRANSACTION")
@@ -29,21 +29,20 @@ public class TransactionEntity {
     @Column(name = "VALUE", nullable = false)
     private Double value;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false, length = 50)
     private TransactionTypeEnum type;
 
     @Column(name = "REVERSED", nullable = false)
     private Boolean reversed;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ACCOUNT_TRANSACTION", joinColumns = { @JoinColumn(name = "TRANSACTION_ID") }, inverseJoinColumns = {
-        @JoinColumn(name = "ACCOUNT_ID_IN") })
-    private List<AccountEntity> accountIn;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ACCOUNT_ID_IN")
+    private AccountEntity accountIn;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ACCOUNT_TRANSACTION", joinColumns = { @JoinColumn(name = "TRANSACTION_ID") }, inverseJoinColumns = {
-        @JoinColumn(name = "ACCOUNT_ID_OUT") })
-    private List<AccountEntity> accountOut;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ACCOUNT_ID_OUT")
+    private AccountEntity accountOut;
 
     public TransactionEntity() {
     }
@@ -54,7 +53,7 @@ public class TransactionEntity {
         Double value,
         TransactionTypeEnum type,
         Boolean reversed,
-        List<AccountEntity> accountIn, List<AccountEntity> accountOut) {
+        AccountEntity accountIn, AccountEntity accountOut) {
         this.id = id;
         this.transactionDate = transactionDate;
         this.value = value;
@@ -104,19 +103,19 @@ public class TransactionEntity {
         this.reversed = reversed;
     }
 
-    public List<AccountEntity> getAccountIn() {
+    public AccountEntity getAccountIn() {
         return accountIn;
     }
 
-    public void setAccountIn(List<AccountEntity> accountIn) {
+    public void setAccountIn(AccountEntity accountIn) {
         this.accountIn = accountIn;
     }
 
-    public List<AccountEntity> getAccountOut() {
+    public AccountEntity getAccountOut() {
         return accountOut;
     }
 
-    public void setAccountOut(List<AccountEntity> accountOut) {
+    public void setAccountOut(AccountEntity accountOut) {
         this.accountOut = accountOut;
     }
 
@@ -125,7 +124,7 @@ public class TransactionEntity {
             "id=" + id +
             ", transactionDate=" + transactionDate +
             ", value=" + value +
-            ", type='" + type + '\'' +
+            ", type=" + type +
             ", reversed=" + reversed +
             ", accountIn=" + accountIn +
             ", accountOut=" + accountOut +

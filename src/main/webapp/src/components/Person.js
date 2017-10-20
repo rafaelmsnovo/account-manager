@@ -13,15 +13,22 @@ export default class Person extends Component {
   }
 
   removePerson(person){
-    console.log(person);
-    fetch(`http://localhost:8080/person/remove?person=${person}`, {
-       method: 'POST'
+    fetch('http://localhost:8080/person/remove', {
+       method: 'POST',
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify({person: person})
     })
     .then((response) => {
-      console.log(response);
+      if (!response.ok) {
+        throw Error();
+      }
+      this.listPerson();
     })
     .catch((error) => {
-      console.log(error);
+      alert('Erro ao remover a pessoa '+person.id+', verifique se esta pessoa não está atrelada a nenhuma conta.');
     });
   }
 
@@ -42,7 +49,7 @@ export default class Person extends Component {
   render() {
     return (
       <Col sm={12} md={12} className="Content">
-        <Button bsStyle="primary" >Adicionar Pessoa</Button><br></br><br></br>
+        <Button bsStyle="primary" href="/person/add">Adicionar Pessoa</Button><br></br><br></br>
         <table className="List-table">
           <thead>
           <tr>
@@ -58,16 +65,23 @@ export default class Person extends Component {
           </thead>
           <tbody>
           {this.state.persons.map(function(person){
+            var d = new Date(person.birthDate);
+            let month = String(d.getMonth() + 1);
+            let day = String(d.getDate());
+            const year = String(d.getFullYear());
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+            let date  = day+"/"+month+"/"+year;
             return (
               <tr>
                 <td>{person.id}</td>
                 <td>{person.cpf}</td>
                 <td>{person.fullName}</td>
-                <td>{person.birthDate}</td>
+                <td>{date}</td>
                 <td>{person.cnpj}</td>
                 <td>{person.fantasyName}</td>
                 <td>{person.companyName}</td>
-                <td><Button bsSize="small" >Editar</Button> <Button bsStyle="danger" bsSize="small" onClick={() => this.removePerson(person.id)}>Remover</Button></td>
+                <td><Button bsSize="small" href={"/person/edit/" + person.id}>Editar</Button> <Button bsStyle="danger" bsSize="small" onClick={() => this.removePerson(person)}>Remover</Button></td>
               </tr>
             )
           }, this)}
