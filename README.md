@@ -20,23 +20,22 @@ OBS:
 Por padrão o projeto está configurado para rodar com o banco em memória (h2)
 
   ----- EM src/main/resources/application.properties ----
-  ###
-  #   Database Settings
-  ###
-  spring.datasource.url=jdbc:h2:mem:dm;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-  spring.datasource.platform=h2
-  spring.datasource.username=root
-  spring.datasource.password=
-  spring.datasource.driverClassName=org.h2.Driver
-  spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+  //Database Settings
+  //spring.datasource.url=jdbc:h2:mem:dm;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+  //spring.datasource.platform=h2
+  //spring.datasource.username=root
+  //spring.datasource.password=
+  //spring.datasource.driverClassName=org.h2.Driver
+  //spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 
 Para mudar para o banco Mysql basta trocar as configurações para estas mas com a sua database, seu usuario e senha do seu banco
 
- #MYSQL
- spring.datasource.url=jdbc:mysql://localhost:3306/teste
- spring.datasource.username=root
- spring.datasource.password=suporte
- spring.datasource.driverClassName=com.mysql.jdbc.Driver
+ //MYSQL
+ //spring.datasource.url=jdbc:mysql://localhost:3306/teste
+ //spring.datasource.username=root
+ //spring.datasource.password=suporte
+ //pring.datasource.driverClassName=com.mysql.jdbc.Driver
 
 
 
