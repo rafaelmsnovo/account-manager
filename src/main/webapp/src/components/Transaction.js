@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
-import { Col, Button } from 'react-bootstrap';
+import { Col, Button, FormControl } from 'react-bootstrap';
 import '../styles/App.css';
 
 export default class Transaction extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { transactions: [] }
+    this.state = { transactions: [], key: '' }
 
     this.listTransaction = this.listTransaction.bind(this);
     this.reverse = this.reverse.bind(this);
+    this.setKey = this.setKey.bind(this);
   }
 
+  setKey(event) {
+      this.setState({ key: event.target.value });
+    }
+
   reverse(transaction){
+    transaction.transactionKey = this.state.key;
+    console.log(transaction);
     fetch('http://localhost:8080/transaction/reverse', {
        method: 'POST',
        headers: {
@@ -82,7 +89,14 @@ export default class Transaction extends Component {
                 <td>{transaction.reversed === true ? 'Sim': 'Não'}</td>
                 <td>{transaction.accountInId}</td>
                 <td>{transaction.accountOutId}</td>
-                <td>{transaction.reversed === true ? '' : (<Button bsStyle="danger" bsSize="small" onClick={() => this.reverse(transaction)}>Extornar</Button>)}</td>
+                <td>{transaction.reversed === true ? '' : (
+                    <div>
+                    {transaction.type === 'APORTE' ? (
+                      <FormControl className="Key" type="text" placeholder="Chave" onChange={this.setKey}/>
+                    ): ''}
+                    <Button bsStyle="danger" bsSize="small" onClick={() => this.reverse(transaction)}>Extornar</Button>
+                    </div>
+                )}</td>
               </tr>
             )
           }, this)}

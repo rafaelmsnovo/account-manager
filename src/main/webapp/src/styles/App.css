@@ -30,3 +30,8 @@ table, th, td {
     float: left;
     margin-right: 15px;
 }
+
+.Key {
+    width:  100px;
+    float: left;
+}

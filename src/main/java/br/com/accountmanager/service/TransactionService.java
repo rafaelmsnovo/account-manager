@@ -25,7 +25,7 @@ public class TransactionService {
     @Autowired
     private AccountService accountService;
 
-    @Value("transaction.key")
+    @Value("${transaction.key}")
     private String key;
 
     @Transactional
@@ -39,7 +39,7 @@ public class TransactionService {
             if (!aIn.getStatus().equals(AccountStatusEnum.ACTIVE.getValue()) || !aOut.getStatus().equals(AccountStatusEnum.ACTIVE.getValue())) {
                 throw new Exception("A(s) Conta(s) não esta(estão) ativa(s).");
             }
-            if (!aIn.getAccountParentId().equals(aOut.getId())) {
+            if (!aOut.getAccountParentId().equals(aIn.getId())) {
                 throw new Exception("A conta destino não é filha da conta origem");
             }
             aIn.setBalance(aIn.getBalance() - transactionResponse.getValue());
@@ -78,8 +78,8 @@ public class TransactionService {
                 throw new Exception("A(s) Conta(s) não esta(estão) ativa(s).");
             }
 
-            aIn.setBalance(aIn.getBalance() - transactionResponse.getValue());
-            aOut.setBalance(aOut.getBalance() + transactionResponse.getValue());
+            aIn.setBalance(aIn.getBalance() + transactionResponse.getValue());
+            aOut.setBalance(aOut.getBalance() - transactionResponse.getValue());
             accountService.update(aIn);
             accountService.update(aOut);
 

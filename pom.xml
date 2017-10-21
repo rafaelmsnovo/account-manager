@@ -32,6 +32,13 @@
             <artifactId>h2</artifactId>
         </dependency>
 
+        <!-- MYSQL DATABASE CONNECTOR -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.36</version>
+        </dependency>
+
         <!-- Log4j -->
         <dependency>
             <groupId>log4j</groupId>

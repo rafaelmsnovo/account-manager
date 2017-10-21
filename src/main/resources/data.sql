@@ -67,8 +67,8 @@ INSERT INTO ACCOUNT (
       120.50,
       'TRANSFER',
       0,
-      2,
-      1
+      1,
+      2
     );
 
 

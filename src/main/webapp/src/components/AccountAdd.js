@@ -136,7 +136,7 @@ export default class AccountAdd extends Component {
               </FormControl>
             </Col>
           </FormGroup>
-          <Button href="/account">Cancelar</Button> <Button bsStyle="primary" onClick={(account) => this.addAccount(account)}>Criar Conta</Button>
+          <Button href="/account">Cancelar</Button> <Button bsStyle="primary" onClick={() => this.addAccount()}>Criar Conta</Button>
         </Form>
        
       </Col>
